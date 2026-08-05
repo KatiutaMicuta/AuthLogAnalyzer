@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AuthLogAnalyzer.Tests/AuthLogAnalyzer.Tests.csproj" />
+  <Project Path="AuthLogAnalyzer/AuthLogAnalyzer.csproj" />
+</Solution>

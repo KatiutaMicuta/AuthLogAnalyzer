@@ -1,6 +1,6 @@
 public class LogEntry
 {
-    public required string TimestampRaw {get; set; }
+    public required DateTime Timestamp { get; set; }
     public required string SourceIp {get; set; }
 
 }
