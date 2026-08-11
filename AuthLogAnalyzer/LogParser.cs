@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.Net;
 public class LogParser 
 {
     public static LogEntry? ParseFailedLogin(string line) //a method that gives back either a LogEntry (timestamp and IP) or `null`, saying this line isnt a failed login, ignore it
@@ -8,11 +9,23 @@ public class LogParser
             return null;
         }
 
-        string[] parts = line.Split(' '); //turning the lines into addressable fields so we can index each category (ip/date/etc.)
+        string[] parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries); //turning the lines into addressable fields so we can index each category (ip/date/etc.)
+        string? ip = null;
 
-        int fromIndex = Array.IndexOf(parts, "from"); //getting the ip from the index thats after the word "from", so we dont miss IPs in differently formatted lines
-        int ipPosition = fromIndex + 1;
-        string ip = parts[ipPosition];
+
+        foreach (string part in parts)
+        {
+            if (part.Split('.').Length == 4 && IPAddress.TryParse(part, out _))
+            {
+                ip = part;
+                break;
+            }          
+        }
+        if (ip == null)
+            {
+                return null;
+            }
+        
 
         string timestampText = $"{parts[0]} {parts[1]} {parts[2]}"; //combining the date indexes to make an actual date 
         DateTime timestamp = DateTime.ParseExact(timestampText, "MMM d HH:mm:ss", CultureInfo.InvariantCulture); 
