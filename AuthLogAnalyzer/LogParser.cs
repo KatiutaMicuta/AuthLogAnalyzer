@@ -1,6 +1,6 @@
 using System.Globalization;
 using System.Net;
-public class LogParser 
+public class LogParser
 {
     public static LogEntry? ParseFailedLogin(string line, int year) //a method that gives back either a LogEntry (timestamp and IP) or `null`, saying this line isnt a failed login, ignore it
     {
@@ -19,19 +19,19 @@ public class LogParser
             {
                 ip = part;
                 break;
-            }          
+            }
         }
         if (ip == null)
-            {
-                return null;
-            }
-        
+        {
+            return null;
+        }
+
 
         string timestampText = $"{year} {parts[0]} {parts[1]} {parts[2]}"; //combining the date indexes to make an actual date 
-        DateTime timestamp = DateTime.ParseExact(timestampText, "yyyy MMM d HH:mm:ss", CultureInfo.InvariantCulture); 
+        DateTime timestamp = DateTime.ParseExact(timestampText, "yyyy MMM d HH:mm:ss", CultureInfo.InvariantCulture);
 
 
-        LogEntry entry = new LogEntry {Timestamp = timestamp, SourceIp = ip}; //binding the two facts (time and ip of attack) into one unit so they can move together from now on without losing attributes
+        LogEntry entry = new LogEntry { Timestamp = timestamp, SourceIp = ip }; //binding the two facts (time and ip of attack) into one unit so they can move together from now on without losing attributes
         return entry;
     }
 }

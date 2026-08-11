@@ -1,6 +1,6 @@
 
-string path ="/Users/katia/CompSci/AuthLogAnalyzer/sample-data/auth.log";
-string [] lines = File.ReadAllLines(path);
+string path = "/Users/katia/CompSci/AuthLogAnalyzer/sample-data/auth.log";
+string[] lines = File.ReadAllLines(path);
 
 Console.WriteLine($"Read {lines.Length} lines");
 
@@ -30,8 +30,8 @@ foreach (var g in groups)
 
 List<BruteForceFinding> findings = BruteForceDetector.DetectBruteAttack(entries, attemptThreshold, windowMinutes);
 foreach (BruteForceFinding finding in findings)
-    {
-        Console.WriteLine($"Detected BRUTE FORCE ATTACK: IP - {finding.SourceIp} | Span - {finding.Span} | Failures - {finding.FailureCount}");
-    } 
+{
+    Console.WriteLine($"Detected BRUTE FORCE ATTACK: IP - {finding.SourceIp} | Span - {finding.Span} | Failures - {finding.FailureCount}");
+}
 
 Console.WriteLine($"So far, {entries.Count} failed IPs have been collected.");

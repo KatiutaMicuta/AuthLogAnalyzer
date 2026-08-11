@@ -18,7 +18,7 @@ public class LogParserTest
         string line = "Mar 15 09:01:01 webserver CRON[1198]: pam_unix(cron:session): session opened for user root by (uid=0)";
         LogEntry? answer = LogParser.ParseFailedLogin(line, 1999); // its gonna return null because if you go to the method it can return null
         Assert.Null(answer);
-        
+
     }
 
     [Fact]
@@ -47,6 +47,6 @@ public class LogParserTest
         string line = "Mar 15 14:02:11 webserver sshd[1602]: Failed password for root from 203.0.113.42 port 44201 ssh2";
         LogEntry? answer = LogParser.ParseFailedLogin(line, 1999);
         Assert.NotNull(answer);
-        Assert.Equal(new DateTime (1999, 3, 15, 14, 2, 11), answer.Timestamp); 
+        Assert.Equal(new DateTime(1999, 3, 15, 14, 2, 11), answer.Timestamp);
     }
 }
