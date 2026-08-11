@@ -15,7 +15,7 @@ List<LogEntry> entries = new List<LogEntry>(); //creates the container where we'
 // PASS 1 - collect. Hand each line to the parser, keep whatever comes back.
 foreach (string line in lines)
 {
-    LogEntry? entry = LogParser.ParseFailedLogin(line); //either a LogEntry, or null if this line wasn't a failed login
+    LogEntry? entry = LogParser.ParseFailedLogin(line, DateTime.Now.Year); //either a LogEntry, or null if this line wasn't a failed login
 
     if (entry != null) //only real entries go in the list
     {
