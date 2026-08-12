@@ -24,7 +24,8 @@ public class BruteForceDetector
                     {
                         Span = span,
                         SourceIp = g.Key,
-                        FailureCount = g.Count()
+                        FailureCount = g.Count(),
+                        AttemptTime = firstAttempt
                     };
                     findings.Add(finding);
                     break;

@@ -10,13 +10,13 @@ and a server on the internet gets background noise from bots constantly.
 
 What actually matters is the **rate**. Five failures from one IP over a week is
 someone forgetting their password. Five failures from one IP in twenty seconds
-is a script working through a wordlist.
+is an attempted breach.
 
 So the rule is: how many failures from the same IP, and how close together. If a
-run of N failures fits inside M minutes, it gets flagged. That's the same idea
+run of X failures fits inside Y minutes, it gets flagged. That's the same idea
 fail2ban uses, where the two settings are called `maxretry` and `findtime`.
 
-Both numbers are set in `Program.cs`, currently 5 failures in 10 minutes.
+Both numbers are set in `Program.cs` - 5 failures in 10 minutes.
 
 ## Finding the IP
 

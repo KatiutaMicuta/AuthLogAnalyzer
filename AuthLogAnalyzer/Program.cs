@@ -1,6 +1,18 @@
-
+using Microsoft.Extensions.Configuration;
 string path = "/Users/katia/CompSci/AuthLogAnalyzer/sample-data/auth.log";
 string[] lines = File.ReadAllLines(path);
+
+IConfiguration config = new ConfigurationBuilder()
+    .AddUserSecrets<Program>()
+    .Build();
+
+string? connectionString = config.GetConnectionString("AuthLog");
+
+if (connectionString == null)
+{
+    Console.WriteLine("No connection string found. Run: dotnet user-secrets set...");
+    return;
+}
 
 Console.WriteLine($"Read {lines.Length} lines");
 
@@ -31,7 +43,11 @@ foreach (var g in groups)
 List<BruteForceFinding> findings = BruteForceDetector.DetectBruteAttack(entries, attemptThreshold, windowMinutes);
 foreach (BruteForceFinding finding in findings)
 {
-    Console.WriteLine($"Detected BRUTE FORCE ATTACK: IP - {finding.SourceIp} | Span - {finding.Span} | Failures - {finding.FailureCount}");
+    Console.WriteLine($"Detected BRUTE FORCE ATTACK: IP - {finding.SourceIp} | Span - {finding.Span} | Failures - {finding.FailureCount} | Time - {finding.AttemptTime}");
 }
 
 Console.WriteLine($"So far, {entries.Count} failed IPs have been collected.");
+
+
+int savedCount = FindingRepository.SaveFindings(findings, connectionString);
+Console.WriteLine($"Saved {savedCount} NEW findings to the database.");
